@@ -1,0 +1,34 @@
+{
+  "month": "July",
+  "year": 2023,
+  "monthsTransactions": [
+    {
+      "date": 28,
+      "days": "Monday",
+      "totalAmountTransactions": 64500,
+      "transactions": [
+        {
+          "logo": "https://static.vecteezy.com/system/resources/previews/006/851/246/original/spoon-and-fork-icon-free-vector.jpg",
+          "category": "Foods & Beverages",
+          "description": "",
+          "type": "Expense",
+          "amount": 42500
+        },
+        {
+          "logo": "https://png.pngtree.com/png-clipart/20190705/original/pngtree-vector-car-icon-png-image_4277476.jpg",
+          "category": "Transportation",
+          "description": "Pulang",
+          "type": "Expense",
+          "amount": 10000
+        },
+        {
+          "logo": "https://png.pngtree.com/png-clipart/20190705/original/pngtree-vector-car-icon-png-image_4277476.jpg",
+          "category": "Transportation",
+          "description": "Pergi",
+          "type": "Expense",
+          "amount": 12000
+        }
+      ]
+    }
+  ]
+}

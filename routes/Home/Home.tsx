@@ -1,16 +1,52 @@
 import { useLinkTo } from '@react-navigation/native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import mockData from "../../constant/monthstransactions.json";
+import DailyTransactions from '../../components/DailyTransactions/DailyTransactions';
+
+interface Transaction {
+  logo: string,
+  category: string,
+  description: string,
+  type: string,
+  amount: number
+}
+
+interface UserMonthsTransactions {
+  date: number,
+  days: string,
+  totalAmountTransactions: number,
+  transactions: Array<Transaction>
+}
+
+interface UserMonthsTransactionsData {
+  month: string,
+  year: number,
+  monthsTransactions: Array<UserMonthsTransactions>
+}
 
 const Home = () => {
   const linkTo = useLinkTo();
-  const [currency, setCurrency] = useState("Rp");
+  const [userTransactionDetails, setUserTransactionDetails] = useState<UserMonthsTransactionsData>();
+  const [currency, setCurrency] = useState<string>("Rp");
   const [totalAmount, setTotalAmount] = useState<number>(10000000);
   const [totalIncome, setTotalIncome] = useState<number>(3500000);
   const [totalSpending, setTotalSpending] = useState<number>(1373520);
-  const [totalRemaining, setTotalRemaining] = useState<number>(totalIncome - totalSpending)
+  const [totalRemaining, setTotalRemaining] = useState<number>(totalIncome - totalSpending);
 
+  useEffect(() => {
+    setUserTransactionDetails(mockData as unknown as UserMonthsTransactionsData)
+  }, [])
+  
+
+  /* monthstransactions => array
+    isi=> bulan, tahun
+    array => transaksi per hari nya
+    transaksi isi => tanggal bulan hari tahun,
+    array => transaksi breakdown
+    breakdown => logo, judul, deskripsi, uang
+  */
 
   return (
     <SafeAreaView style={styles.container}>
@@ -52,6 +88,21 @@ const Home = () => {
             {`${currency} ${totalRemaining.toLocaleString()}`}
           </Text>
         </View>
+      </View>
+      <View>
+        {userTransactionDetails?.monthsTransactions?.map((dailyTrans) => {
+          return (
+            <DailyTransactions
+              currency={currency}
+              date={dailyTrans.date}
+              days={dailyTrans.days}
+              month={userTransactionDetails.month}
+              year={userTransactionDetails.year}
+              totalAmountTransactions={dailyTrans.totalAmountTransactions}
+              transactions={dailyTrans.transactions}
+            />
+          )
+        })}
       </View>
       <Button
         title="Back"
